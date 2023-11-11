@@ -1,0 +1,59 @@
+ // app.js
+
+const menu = {
+  _meal: '', // Private property for the meal
+  _price: 0, // Private property for the price
+
+  // Getter for the meal property
+  get meal() {
+    return this._meal;
+  },
+
+  // Setter for the meal property with type checking
+  set meal(mealToCheck) {
+    // Type checking logic
+    if (typeof mealToCheck === 'string') {
+      this._meal = mealToCheck;
+    }
+    // You can add else branches or additional validation logic as needed
+  },
+
+  // Getter for the price property
+  get price() {
+    return this._price;
+  },
+
+  // Setter for the price property with type checking
+  set price(priceToCheck) {
+    // Type checking logic
+    const parsedPrice = parseFloat(priceToCheck);
+    if (!isNaN(parsedPrice)) {
+      this._price = parsedPrice;
+    }
+    // You can add else branches or additional validation logic as needed
+  },
+
+  // TodaysSpecial method as a getter
+  get todaysSpecial() {
+    // Proactively check if both meal and price are properly set
+    if (this._meal && this._price) {
+      return `Today's Special is ${this._meal} for $${this._price.toFixed(2)}!`;
+    } else {
+      return 'Meal or price was not set correctly!';
+    }
+  }
+};
+
+// Extend the project: Add arrays of meals and prices
+const randomMeals = ['Burger', 'Pizza', 'Salad', 'Sushi'];
+const randomPrices = [8.99, 12.49, 7.99, 18.99];
+
+// Set Today's Special randomly
+const randomMealIndex = Math.floor(Math.random() * randomMeals.length);
+const randomPriceIndex = Math.floor(Math.random() * randomPrices.length);
+
+menu.meal = randomMeals[randomMealIndex];
+menu.price = randomPrices[randomPriceIndex];
+
+// Display the updated today's special using the getter method
+console.log(menu.todaysSpecial);
